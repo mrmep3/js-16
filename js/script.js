@@ -1,5 +1,5 @@
-const money = 45000,
-		 income = 'Фриланс',
+const money = 45000;
+const income = 'Фриланс',
 		 addExpenses = 'Комуналка, интернет, бензин',
 		 deposit = true,
 		 mission = 150000,
