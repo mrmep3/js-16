@@ -1,27 +1,11 @@
-const money = 45000,
-		 income = 'Фриланс',
-		 addExpenses = 'Комуналка, интернет, бензин',
-		 deposit = true,
-		 mission = 150000,
-		 period = 6;
+const num = 266219;
+let arr = num.toString().split('');
 
-let budgetDay = money / 30;
+let result = arr.reduce(function (sum, current) {
+	return sum * current
+});
 
-	// Вывод типа данных
-console.log('Тип данных переменной "money": ', typeof money);
-console.log('Тип данных переменной "income": ', typeof income);
-console.log('Тип данных переменной "deposit": ', typeof deposit);
-
-	//Вывод длины строки
-console.log('Длинная строки переменной "addExpenses": ', addExpenses.length);
-
-	//Вывод периода и цели
-console.log('Период равен ' + period + ' ' + 'месяцев');
-console.log('Цель заработать ' + mission + ' рублей');
-
-	// Вывод строки в нижнем регистре
-console.log('Нижний регистр: ', addExpenses.toLowerCase());
-console.log('Массив: ', addExpenses.split(', '));
-
-	// Вывод переменной budgetDay
-console.log('Дневной бюджет: ', budgetDay);
+console.log('Число:', num);
+console.log('Произведение числа:', result);
+console.log('Результат вовзедения в 3 степень:', result ** 3);
+console.log('Первые две цифры результата:', String(result ** 3).slice(0, 2));
