@@ -13,9 +13,9 @@ const money = +prompt('Какой твой доход?', 50000),
 	result = getExpensesMonth(amount1, amount2),
 	accumulatedMonth = getAccumulatedMonth(money, result),
 	target = getTargetMonth(mission, accumulatedMonth),
-	budgetDay = Math.floor(getAccumulatedMonth(money, result) / 30);
+	budgetDay = Math.floor(accumulatedMonth / 30);
 
-let showTypeOf = function(data) {
+const showTypeOf = function(data) {
 	console.log('Тип данных переменной: ', typeof data);
 };
 
@@ -48,13 +48,13 @@ console.log('Расходы за месяц: ', result);
 // Вывод переменной budgetDay
 console.log('Дневной бюджет: ', budgetDay);
 
-let getStatusIncome = function() {
+const getStatusIncome = function() {
 	// Условия вывода переменной budgetDay
 	if (budgetDay > 1200) {
 		console.log('У вас высокий уровень дохода');
 	} else if (budgetDay <= 1200 && budgetDay >= 600) {
 		console.log('У вас средний уровень дохода');
-	} else if (budgetDay < 600 && budgetDay > 0) {
+	} else if (budgetDay < 600 && budgetDay >= 0) {
 		console.log('К сожалению у вас уровень дохода ниже среднего');
 	} else if (budgetDay < 0) {
 		console.log('Что то пошло не так');
