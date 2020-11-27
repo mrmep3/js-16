@@ -2,6 +2,7 @@
 //break;
 //функция проверки на число
 const isNumber = function(n) {
+	console.log('n: ', n);
 	return !isNaN(parseFloat(n)) && isFinite(n)
 };
 
@@ -43,13 +44,16 @@ function getExpensesMonth() {
 			expenses1 = prompt('Введите обязательную статью расходов?', 'Курсы');
 		} else if (i === 1) {
 			expenses2 = prompt('Введите обязательную статью расходов?', 'Питание');
-		}
-
-		sum += +prompt('Во сколько это обойдется?');
-
-		while (!isNumber(sum)) {
-			sum = +prompt('Во сколько это обойдется?');
 		};
+		// проверяем на число переменную sum
+		let y;
+			
+			do {
+				y = prompt('Во сколько это обойдется?');
+			} while (!isNumber(y));
+			y = +y;
+		
+		sum += y;
 
 	}
 
