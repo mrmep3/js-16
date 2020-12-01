@@ -18,7 +18,6 @@ const capitalize = (n, lower = false) =>
   (lower ? n.toLowerCase() : n).replace(/(?:^|,\s|["'([{])+\S/g, match => match.toUpperCase());
 ;
 
-
 /* const capitalize = function(n) {
 let splits = n.split(' ');
 let result = ' ';
@@ -63,8 +62,7 @@ const appData = {
 		if (confirm('У вас есть дополнительный источник заработка?')) {
 			do {
 				itemIncome = prompt('Какой у вас дополнительный заработок?', 'Таксую');
-			} while (isNumber(itemIncome));
-			//while (!isString(itemIncome));
+			} while (!isString(itemIncome));
 			do {
 				cashIncome = prompt('Сколько вы на это зарабатываете в месяц?', 10000);
 			} while (!isNumber(cashIncome));
@@ -80,7 +78,11 @@ const appData = {
 		appData.addExpenses = capitalize(itemExpenses);
 		appData.deposit = confirm('Есть ли у вас депозит в банке?');
 		for (let i = 0; i < 2; i++) {
-			appData.expenses[prompt('Введите обязательную статью расходов?')] = one();
+			let str; 
+			do {
+				str = prompt('Введите обязательную статью расходов?');
+			} while (!isString(str))
+			appData.expenses[str] = one();
 			function one() {
 				let y;
 				do {
