@@ -2,15 +2,14 @@
 //break;
 //функция проверки на число
 const isNumber = function(n) {
-	console.log('n: ', n);
+	//console.log('n: ', n);
 	return !isNaN(parseFloat(n)) && isFinite(n)
 };
 
 const isString = function(n) {
 	// ^[а-яА-ЯёЁa-zA-Z0-9]+$
-	console.log('n (string): ', n);
 	let reg = /^[а-яА-ЯёЁa-zA-Z][а-яА-ЯёЁa-zA-Z0-9\s,]+$/;
-	console.log(reg.test(n));
+	//console.log(reg.test(n));
 	return reg.test(n);
 };
 
@@ -40,7 +39,7 @@ const start = function () {
 	while (!isNumber(money));
 };
 
-start();
+//start();
 
 
 const appData = {
@@ -144,16 +143,74 @@ const appData = {
 	}
 };
 
-appData.asking();
-appData.getExpensesMonth();
-appData.getBudget();
-appData.getTargetMonth();
-appData.getStatusIncome();
+//appData.asking();
+//appData.getExpensesMonth();
+//appData.getBudget();
+//appData.getTargetMonth();
+//appData.getStatusIncome();
 
 console.log('Наша программа включает в себя данные: ');
 for (let item in appData) {
     console.log(item, appData[item]);
 }
 
-appData.getInfoDeposit();
-console.log(appData.percentDeposit, appData.moneyDeposit, appData.calcSavedMiney());
+//appData.getInfoDeposit();
+//console.log(appData.percentDeposit, appData.moneyDeposit, appData.calcSavedMiney());
+
+console.log('Вывод данных 9го урока:');
+const buttonStart = document.getElementById('start');
+console.log('Кнопка "Расчитать": ', buttonStart);
+
+const incomeAdd = document.getElementsByTagName('button')[0];
+console.log('Кнопка "+" (доход): ', incomeAdd);
+
+const expensesAdd = document.getElementsByTagName('button')[1];
+console.log('Кнопка "+" (расход): ', expensesAdd);
+
+const depositСheck = document.querySelector('#deposit-check');
+console.log('Чекбокс (депозит): ', depositСheck);
+
+const additionalIncomeItem = document.querySelectorAll('.additional_income-item');
+console.log('Поля ввода возможных доходов: ', additionalIncomeItem);
+
+console.log('Поля правой части экрана');
+//const budgetMonthValue = document.getElementsByClassName('result-total')[0];
+//console.log('Доход за месяц: ', budgetMonthValue);
+const budgetDayValue = document.getElementsByClassName('result-total')[1];
+console.log('Дневной бюджет: ', budgetDayValue);
+const expensesMonthValue = document.getElementsByClassName('result-total')[2];
+console.log('Расход за месяц: ', expensesMonthValue);
+const additionalIncomeValue = document.getElementsByClassName('result-total')[3];
+console.log('Возможные доходы: ', additionalIncomeValue);
+const additionalExpensesValue = document.getElementsByClassName('result-total')[4];
+console.log('Возможные расходы: ', additionalExpensesValue);
+const incomePeriodValue = document.getElementsByClassName('result-total')[5];
+console.log('Накопления за период: ', incomePeriodValue);
+const targetMonthValue = document.getElementsByClassName('result-total')[6];
+console.log('Срок достижения цели: ', targetMonthValue);
+
+const salaryAmount = document.querySelector('.salary-amount');
+console.log('Поле ввода дохода: ', salaryAmount);
+
+const incomeItems = document.querySelector('.income-items');
+console.log('Наименование доп. дохода: ', incomeItems.children[0]);
+console.log('Сумма доп. дохода: ', incomeItems.children[1]);
+
+const expensesItems = document.querySelector('.expenses-items');
+console.log('Наименование обяз. расхода: ', expensesItems.children[0]);
+console.log('Сумма обяз. расхода: ', expensesItems.children[1]);
+
+const additionalExpensesItem = document.querySelector('.additional_expenses-item');
+console.log('Возможные расходы: ', additionalExpensesItem);
+
+const depositAmount = document.querySelector('.deposit-amount');
+console.log('Сумма депозита: ', depositAmount);
+
+const depositPercent = document.querySelector('.deposit-percent');
+console.log('Процент депозита: ', depositPercent);
+
+const targetAmount = document.querySelector('.target-amount');
+console.log('Цель: ', targetAmount);
+
+const periodSelect = document.querySelector('.period-select');
+console.log('Период расчета: ', periodSelect);
