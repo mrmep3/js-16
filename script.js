@@ -3,6 +3,8 @@
 const books = document.querySelectorAll('.books'),
 		elemBook = document.querySelectorAll('.book');
 
+console.log(elemBook);
+
 books[0].append(elemBook[1]);
 books[0].append(elemBook[0]);
 books[0].append(elemBook[4]);
@@ -10,7 +12,7 @@ books[0].append(elemBook[3]);
 books[0].append(elemBook[5]);
 books[0].append(elemBook[2]);
 
-// Меняем задник
+// Меняем задник (фон) :))
 document.querySelector('body').style.backgroundImage='url(./image/bg-image.jpg)';
 
 //Удалаем рекламу
@@ -37,4 +39,4 @@ arrBook2[9].insertAdjacentElement( 'beforeend', arrBook2[2] );
 arrBook2[4].insertAdjacentElement( 'afterbegin', arrBook2[8] );
 
 // Изменение заголовка в книге 3
-const str = elemBook[4].firstElementChild.innerText = 'Книга 3. this и Прототипы Объектов';
+const str = elemBook[4].firstElementChild.children[0].innerText = 'Книга 3. this и Прототипы Объектов';
