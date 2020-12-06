@@ -52,8 +52,6 @@ let periodSelect = document.querySelector('.period-select');
 let incomeItems = document.querySelectorAll('.income-items');
 let expensesItems = document.querySelectorAll('.expenses-items');
 
-console.log(periodSelect);
-
 const appData = {
 	income: {}, //дополнительный источник заработка
 	incomeMonth: 0,
@@ -250,12 +248,11 @@ const appData = {
 	},
 	changePeriodSelect: function (event) {
 		document.querySelector('.period-amount').textContent = event.target.value;
-		console.log(event.target.value);
 		incomePeriodValue.value = appData.calcSavedMoney();
 	},
 	startDisable: function () {
-		console.log('Ты че делаешь?');
 		start.disabled = !isNumber(salaryAmount.value.trim());
+		start.style.cursor='not-allowed';
 	}
 };
 
