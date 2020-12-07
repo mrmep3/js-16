@@ -101,3 +101,5 @@ todoControl.addEventListener( 'submit', function (event) {
 render();
 moveToStorage();
 
+
+// попробуй сделать через indexOf и splice удаление из массива todoData
