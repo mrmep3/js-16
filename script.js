@@ -14,17 +14,13 @@ todoCompleted = document.querySelector('.todo-completed');
 
 const addToStorage = function () {
 	const n = JSON.stringify(todoData);
-//	console.log(n);
 	localStorage.setItem('one', n);  // преобразовываем объект в JSON
-//	console.log(todoData);
 };
 
 const moveToStorage = function () {
 	let y = JSON.parse(localStorage.getItem("one"))
-	console.log(y);
 	if (y !== null) {
 		for ( let i = 0; i < y.length; i++ ) {
-			//console.log(y[i]);
 			todoData[i] = y[i];
 		}
 		render();
@@ -65,19 +61,15 @@ const render = function () {
 			const todoRemove = li.querySelector('.todo-remove');
 
 			todoRemove.addEventListener('click', function () {
-				console.log(item);
 				const parent = todoRemove.parentNode.parentNode.parentNode;
 				const child = todoRemove.parentNode.parentNode;
-				parent.removeChild(child);
+				parent.removeChild( child );
 				let filtered = todoData.filter (
-					function start ( currentItem) {
-//						console.log(currentItem);
+					function ( currentItem ) {
 						return currentItem !== item;
 					}
 				)
-	//			console.log(filtered);
 				todoData = filtered;
-	//			console.log(todoData);
 				addToStorage();
 			});
 			// очищаем инпут
@@ -101,7 +93,6 @@ todoControl.addEventListener( 'submit', function (event) {
 	} else {
 		todoData.push( newTodo );
 		render();
-		//addToStorage();
 	}
 	addToStorage();
 
