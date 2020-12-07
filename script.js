@@ -11,20 +11,27 @@ const todoControl = document.querySelector('.todo-control'),
 headerInput = document.querySelector('.header-input'),
 todoList = document.querySelector('.todo-list'),
 todoCompleted = document.querySelector('.todo-completed');
-//todoRemove = document.querySelector('.todo-remove'),
-//test = todoList.querySelector('.todo-complete');
 
-const todoData = [
-	// сюда надо прописать данные из локалсторейдж
-	{
-		value: 'Делаем',
-		completed: false
-	},
-	{
-		value: 'Сделали',
-		completed: true
+const addToStorage = function () {
+	const n = JSON.stringify(todoData);
+//	console.log(n);
+	localStorage.setItem('one', n);  // преобразовываем объект в JSON
+//	console.log(todoData);
+};
+
+const moveToStorage = function () {
+	let y = JSON.parse(localStorage.getItem("one"))
+	console.log(y);
+	if (y !== null) {
+		for ( let i = 0; i < y.length; i++ ) {
+			//console.log(y[i]);
+			todoData[i] = y[i];
+		}
+		render();
 	}
-];
+};
+
+let todoData = [];
 
 const render = function () {
 	todoList.textContent = '';
@@ -52,19 +59,31 @@ const render = function () {
 			todoComplete.addEventListener('click', function () {
 				item.completed = !item.completed;
 				render();
-			})
+				addToStorage();
+			});
+
 			const todoRemove = li.querySelector('.todo-remove');
 
 			todoRemove.addEventListener('click', function () {
 				console.log(item);
 				const parent = todoRemove.parentNode.parentNode.parentNode;
 				const child = todoRemove.parentNode.parentNode;
-				const n = item.completed;
 				parent.removeChild(child);
-			})
+				let filtered = todoData.filter (
+					function start ( currentItem) {
+//						console.log(currentItem);
+						return currentItem !== item;
+					}
+				)
+	//			console.log(filtered);
+				todoData = filtered;
+	//			console.log(todoData);
+				addToStorage();
+			});
 			// очищаем инпут
 			headerInput.value = '';
 	});
+
 };
 
 todoControl.addEventListener( 'submit', function (event) {
@@ -74,6 +93,7 @@ todoControl.addEventListener( 'submit', function (event) {
 		value: headerInput.value.trim(),
 		completed: false
 	};
+
 	if ( !isString(headerInput.value) ) {
 		console.log( 'Пусто' );
 		headerInput.value = '';
@@ -81,14 +101,12 @@ todoControl.addEventListener( 'submit', function (event) {
 	} else {
 		todoData.push( newTodo );
 		render();
+		//addToStorage();
 	}
+	addToStorage();
 
 } );
 
 render();
+moveToStorage();
 
-/* test.addEventListener('click', function () {
-	console.log('привет');
-})
-console.log(test);
- */
