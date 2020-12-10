@@ -49,7 +49,6 @@ const additionalExpensesItem = document.querySelector('.additional_expenses-item
 const depositAmount = document.querySelector('.deposit-amount');
 const depositPercent = document.querySelector('.deposit-percent');
 const targetAmount = document.querySelector('.target-amount');
-const dataInput = document.querySelectorAll('.data input[type=text]');
 let periodSelect = document.querySelector('.period-select');
 let incomeItems = document.querySelectorAll('.income-items');
 let expensesItems = document.querySelectorAll('.expenses-items');
@@ -61,7 +60,6 @@ const appData = {
 	expenses: {}, // обязательные расходы
 	addExpenses: [], // дополнительные расходы
 	deposit: false, //депозит  в банке
-	period: 6, // период для наколпений
 	budget: 0, // доход за месяц
 	budgetDay: 0,
 	budgetMonth: 0, //доходы в месяц
@@ -89,32 +87,49 @@ const appData = {
 			cancel.style.display = 'block';
 	},
 	blockInput: function (disabled = true) {
+		const dataInput = document.querySelectorAll('.data input[type=text]');
 		dataInput.forEach(function (item) {
 			item.disabled = disabled;
-		})
+		});
+		//periodSelect.disabled;
 	},
 	cancel: function () {
-		console.log('ты нажад сбросить');
 		for (let i = incomeItems.length -1; i > 0; i--) {
 			incomeItems[0].parentNode.removeChild(incomeItems[i]);
 		};
 		for (let i =expensesItems.length - 1; i > 0; i--) {
+			console.log(expensesItems.length - 1);
 			expensesItems[0].parentNode.removeChild(expensesItems[i]);
 		};
 		incomeAdd.style.display = '';
 		expensesAdd.style.display = '';
 		this.blockInput(false);
-		dataInput.forEach(function (item) {
+		document.querySelectorAll('.data input[type=text]').forEach(function (item) {
 			item.value = '';
 		});
-		this.getBudget();
+		document.querySelectorAll('.result input[type=text]').forEach(function (item) {
+			item.value = '';
+		});
+		this.reset(),
+		//this.getBudget();
 		periodSelect.value = document.querySelector('.period-amount').textContent = 1;
 		this.startDisable();
 		start.style.display = 'block';
 		cancel.style.display = 'none';
+		console.log(this);
+	},
+	reset: function () {
+		this.income = '';
+		this.expenses = '';
+		this.expensesMonth = '';
+		this.incomeMonth = '';
+		this.budget = ';'
+		this.budgetDay = '';
+		this.budgetMonth = '';
+
+		//console.log(this.length);
 	},
 	showResult: function () {
-		console.log(this);
 		budgetMonthValue.value = this.budgetMonth;
 		budgetDayValue.value = this.budgetDay;
 		expensesMonthValue.value = this.expensesMonth;
@@ -148,9 +163,9 @@ const appData = {
 			const itemExpenses = item.querySelector('.expenses-title').value;
 			const cashExpenses = item.querySelector('.expenses-amount').value;
 			if ( itemExpenses !== '' && cashExpenses !== '' ) {
-				appData.expenses[itemExpenses] = +cashExpenses;
+				this.expenses[itemExpenses] = +cashExpenses;
 			}
-		})
+		}, appData)
 	},
 	getIncome: function () {
 		incomeItems.forEach(function (item) {
@@ -158,26 +173,26 @@ const appData = {
 			const cashIncome = item.querySelector('.income-amount').value;
 			if ( itemIncome !== '' && cashIncome !== '' ) {
 			//} if (!isString(itemIncome) && !isNumber(cashIncome)) {
-				appData.income[itemIncome] = +cashIncome;
+				this.income[itemIncome] = +cashIncome;
 			}
-		})
+		}, appData)
 	},
 	getAddExpenses: function () {
 		let addExpenses = additionalExpensesItem.value.split(',');
 		addExpenses.forEach(function (item) {
 			item = item.trim();
 			if (item !== '') {
-				appData.addExpenses.push(item);
+				this.addExpenses.push(item);
 			}
-		})
+		}, appData)
 	},
 	getAddImcome: function () {
 		additionalIncomeItem.forEach(function (item) {
 			let itemValue = item.value.trim();
 			if (itemValue !== '') {
-				appData.addIncome.push(itemValue);
+				this.addIncome.push(itemValue);
 			}
-		})
+		}, appData)
 	},
 	getExpensesMonth: function () { // функция возвращает сумму всех обязательных расходов
 		this.expensesMonth = 0;
@@ -251,3 +266,4 @@ expensesAdd.addEventListener('click', appData.addExpensesBlock);
 incomeAdd.addEventListener('click', appData.addIncomeBlock);
 periodSelect.addEventListener('input', appData.changePeriodSelect);
 salaryAmount.addEventListener('input', appData.startDisable);
+
