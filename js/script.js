@@ -17,20 +17,6 @@ const capitalize = (n, lower = false) =>
   (lower ? n.toLowerCase() : n).replace(/(?:^|,\s|["'([{])+\S/g, match => match.toUpperCase());
 ;
 
-/* const capitalize = function(n) {
-let splits = n.split(' ');
-let result = ' ';
-
-  for (let i = 0; i < splits.length; i++) {
-    let str = splits[i];
-    let first = str.substring(0, 1).toUpperCase();
-    let leftovers = str.substring(1, str.length)
-    result += first + leftovers + " ";
-  }
-  return result;
-};
- */
-
 const start = document.querySelector('#start');
 const cancel = document.querySelector('#cancel');
 const incomeAdd = document.getElementsByTagName('button')[0];
@@ -91,14 +77,12 @@ const appData = {
 		dataInput.forEach(function (item) {
 			item.disabled = disabled;
 		});
-		//periodSelect.disabled;
 	},
 	cancel: function () {
 		for (let i = incomeItems.length -1; i > 0; i--) {
 			incomeItems[0].parentNode.removeChild(incomeItems[i]);
 		};
 		for (let i =expensesItems.length - 1; i > 0; i--) {
-			console.log(expensesItems.length - 1);
 			expensesItems[0].parentNode.removeChild(expensesItems[i]);
 		};
 		incomeAdd.style.display = '';
@@ -116,18 +100,20 @@ const appData = {
 		this.startDisable();
 		start.style.display = 'block';
 		cancel.style.display = 'none';
-		console.log(this);
 	},
 	reset: function () {
-		this.income = '';
-		this.expenses = '';
-		this.expensesMonth = '';
-		this.incomeMonth = '';
-		this.budget = ';'
-		this.budgetDay = '';
-		this.budgetMonth = '';
-
-		//console.log(this.length);
+		this.income = {};
+		this.expenses = {};
+		this.expensesMonth = 0;
+		this.incomeMonth = 0;
+		this.budget = 0;
+		this.budgetDay = 0;
+		this.budgetMonth = 0;
+		this.addIncome = [];
+		this.addExpenses = [];
+		this.deposit = false;
+		this.percentDeposit = 0;
+		this.moneyDeposit = 0;
 	},
 	showResult: function () {
 		budgetMonthValue.value = this.budgetMonth;
