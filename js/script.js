@@ -79,12 +79,16 @@ const appData = {
 		});
 	},
 	cancel: function () {
-		for (let i = incomeItems.length -1; i > 0; i--) {
-			incomeItems[0].parentNode.removeChild(incomeItems[i]);
-		};
-		for (let i =expensesItems.length - 1; i > 0; i--) {
-			expensesItems[0].parentNode.removeChild(expensesItems[i]);
-		};
+		incomeItems.forEach(function (item, i) {
+			if ( i > 0 && i < 3 ) {
+				item.remove()
+			}
+		})
+		expensesItems.forEach(function (item, i) {
+			if ( i > 0 && i < 3 ) {
+				item.remove()
+			}
+		})
 		incomeAdd.style.display = '';
 		expensesAdd.style.display = '';
 		this.blockInput(false);
