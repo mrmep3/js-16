@@ -1,10 +1,10 @@
 'use strict';
 //break;
 //функция проверки на число
-/* const isNumber = function(n) {
+const isNumber = function(n) {
 	//console.log('n: ', n);
 	return !isNaN(parseFloat(n)) && isFinite(n)
-}; */
+};
 
 /* const isString = function(n) {
 	// ^[а-яА-ЯёЁa-zA-Z0-9]+$
@@ -81,12 +81,16 @@ AppData.prototype.blockInput = function (disabled = true) {
 };
 
 AppData.prototype.cancel = function () {
-	for (let i = incomeItems.length -1; i > 0; i--) {
-		incomeItems[0].parentNode.removeChild(incomeItems[i]);
-	};
-	for (let i =expensesItems.length - 1; i > 0; i--) {
-		expensesItems[0].parentNode.removeChild(expensesItems[i]);
-	};
+	incomeItems.forEach(function (item, i) {
+		if ( i > 0 && i < 3 ) {
+			item.remove()
+		}
+	})
+	expensesItems.forEach(function (item, i) {
+		if ( i > 0 && i < 3 ) {
+			item.remove()
+		}
+	})
 	incomeAdd.style.display = '';
 	expensesAdd.style.display = '';
 	this.blockInput(false);
@@ -157,7 +161,6 @@ AppData.prototype.addExpensesBlock = function () {
 };
 
 AppData.prototype.addIncomeBlock = function () {
-	console.log(this);
 	let cloneIncomeItem = incomeItems[0].cloneNode(true);
 	incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomeAdd);
 	incomeItems = document.querySelectorAll('.income-items');
@@ -165,9 +168,6 @@ AppData.prototype.addIncomeBlock = function () {
 	if (incomeItems.length === 3) {
 		incomeAdd.style.display = "none";
 	}
-	appData.updateInput();
-	console.log(appData);
-	console.log(this);
 };
 
 AppData.prototype.getExpenses = function () { 
@@ -178,7 +178,6 @@ AppData.prototype.getExpenses = function () {
 		const cashExpenses = item.querySelector('.expenses-amount').value;
 		if ( itemExpenses !== '' && cashExpenses !== '' ) {
 			_this.expenses[itemExpenses] = +cashExpenses;
-			console.log(this);
 		}
 	})
 };
@@ -252,60 +251,39 @@ AppData.prototype.getStatusIncome = function () {
 	}
 };
 
+AppData.prototype.getInfoDeposit = function () {
+	if (this.deposit) {
+		let y;
+		do {
+			y = prompt ('Какой годовой процент?', '10');
+		} while (!isNumber(y));
+		this.percentDeposit = +y;
+		do {
+			y = prompt ('Какой сумма заложена?', 10000);
+		} while (!isNumber(y));
+		this.moneyDeposit = +y;
+	}
+};
+
 AppData.prototype.calcSavedMoney = function () {
 	return this.budgetMonth * periodSelect.value;
 };
 
 AppData.prototype.startDisable = function () {
 	//start.disabled = !isNumber(salaryAmount.value.trim());
-	start.disabled = !salaryAmount.value.trim();
+	start.disabled = isNaN(parseFloat(salaryAmount.value.trim()));
 	if (start.disabled) {
-		start.style.cursor='not-allowed';
+		start.style.cursor = 'not-allowed';
 	} else {
-		start.style.cursor='pointer';
+		start.style.cursor = 'pointer';
 	}
 };
 
-AppData.prototype.check = function () {
-	let tmpValue = event.target.value.trim();
-	let target = event.target;
-	console.log(document.querySelectorAll('.data input'));
-	
-	const changeInput = function (event) {
-		console.log(event);
-
-		let condition = /.+/,
-		textAlert;
-		if (target.placeholder === 'Наименование') {
-			condition = /^[а-яА-ЯёЁa-zA-Z][а-яА-ЯёЁa-zA-Z0-9\s,]+$/;
-			textAlert = 'Проверка на букву не пройдена';
-		}
-		if (target.placeholder === 'Сумма') {
-			condition = /^[\d]+$/;
-			textAlert = 'Проверка на число не пройдена';
-		}
-		if (!condition.test(event.target.value.trim()) && event.target.value.trim() !== '') {
-			alert(textAlert);
-			event.target.value = tmpValue;
-			//event.target.removeEventListener('change', changeInput);
-		}
-		tmpValue = event.target.value.trim();
-	};
-	event.target.addEventListener('change', changeInput);
-};
-
-AppData.prototype.updateInput = function () {
-	console.log('Привет');
-	const str = document.querySelectorAll('.data input');
-	//console.log(str);
-};
-
 AppData.prototype.eventListeners = function () {
-	console.log(this);
-	
 	const startBtn = this.start.bind(this);
 	const cancelBtn = this.cancel.bind(this);
 	const _this = this;
+
 	this.startDisable();
 	start.addEventListener('click', startBtn);
 	cancel.addEventListener('click', cancelBtn)
@@ -316,9 +294,6 @@ AppData.prototype.eventListeners = function () {
 		incomePeriodValue.value = _this.calcSavedMoney();
 	});
 	salaryAmount.addEventListener('input', this.startDisable);
-	document.querySelectorAll('.data input').forEach(function (input) {
-		input.addEventListener('focus', _this.check);
-	});
 };
 
 const appData = new AppData;
