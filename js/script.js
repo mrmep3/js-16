@@ -11,10 +11,12 @@ DomElement.prototype.newElement = function () {
 	if (this.selector[0] === '.') {
 		elem = document.createElement('div');
 		elem.className = this.selector.slice(1);
+		elem.textContent = 'Только мы с конем, по полю идем';
 	}
 	if (this.selector[0] === '#') {
 		elem = document.createElement('p');
 		elem.id = this.selector.slice(1);
+		elem.textContent = 'Только мы с конем, по полю идем ';
 	}
 	elem.style.cssText = `
 		height: ${this.height}px;
@@ -25,8 +27,11 @@ DomElement.prototype.newElement = function () {
 	return elem;
 };
 
-let div = new DomElement('.block', 150, 50, 'yellow', 12);
-let par = new DomElement('#best', 100, 100, 'red', 14);
+
+
+let div = new DomElement('.block', 150, 50, 'yellow', 14);
+let par = new DomElement('#best', 100, 100, 'red', 16);
 
 document.body.appendChild(div.newElement());
 document.body.appendChild(par.newElement());
+
