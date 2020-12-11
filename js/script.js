@@ -112,8 +112,8 @@ AppData.prototype.reset = function () {
 	this.budget = 0;
 	this.budgetDay = 0;
 	this.budgetMonth = 0;
-	this.addIncome = {};
-	this.addExpenses = {};
+	this.addIncome = [];
+	this.addExpenses = [];
 	this.deposit = false;
 	this.percentDeposit = 0;
 	this.moneyDeposit = 0;
@@ -124,8 +124,7 @@ AppData.prototype.showResult = function () {
 	budgetDayValue.value = this.budgetDay;
 	expensesMonthValue.value = this.expensesMonth;
 	additionalExpensesValue.value = this.capitalize(this.addExpenses.join(', '));
-	//additionalExpensesValue.value = this.addExpenses.join(', ');
-	additionalIncomeValue.value = this.addIncome.join(', ');
+	additionalIncomeValue.value = this.capitalize(this.addIncome.join(', '));
 	targetMonthValue.value = this.getTargetMonth();
 	incomePeriodValue.value = this.calcSavedMoney();
 };
@@ -158,6 +157,7 @@ AppData.prototype.addExpensesBlock = function () {
 };
 
 AppData.prototype.addIncomeBlock = function () {
+	console.log(this);
 	let cloneIncomeItem = incomeItems[0].cloneNode(true);
 	incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomeAdd);
 	incomeItems = document.querySelectorAll('.income-items');
@@ -165,15 +165,20 @@ AppData.prototype.addIncomeBlock = function () {
 	if (incomeItems.length === 3) {
 		incomeAdd.style.display = "none";
 	}
+	appData.updateInput();
+	console.log(appData);
+	console.log(this);
 };
 
 AppData.prototype.getExpenses = function () { 
+	console.log(this);
 	const _this = this;
 	expensesItems.forEach(function (item) {
 		const itemExpenses = item.querySelector('.expenses-title').value;
 		const cashExpenses = item.querySelector('.expenses-amount').value;
 		if ( itemExpenses !== '' && cashExpenses !== '' ) {
 			_this.expenses[itemExpenses] = +cashExpenses;
+			console.log(this);
 		}
 	})
 };
@@ -262,38 +267,37 @@ AppData.prototype.startDisable = function () {
 };
 
 AppData.prototype.check = function () {
-	const dataInput = document.querySelectorAll('.data input[type=text]');
 	let tmpValue = event.target.value.trim();
 	let target = event.target;
+	console.log(document.querySelectorAll('.data input'));
 	
-	dataInput.forEach(function (item) {
-		console.log(item);
-		const changeInput = function (event) {
-			console.log(event);
-			let condition = /.+/,
-			textAlert;
-			if (target.placeholder === 'Наименование') {
-				condition = /^[а-яА-ЯёЁa-zA-Z][а-яА-ЯёЁa-zA-Z0-9\s,]+$/;
-				textAlert = 'Проверка на букву не пройдена';
-			}
-			if  (target.placeholder === 'Сумма') {
-				condition = /^[\d]+$/;
-				textAlert = 'Проверка на число не пройдена';
-			}
-			if (!condition.test(event.target.value.trim()) && event.target.value.trim() !== '') {
-				alert(textAlert);
-				event.target.value = tmpValue;
-				event.target.removeEventListener('change', changeInput);
-			}
-			tmpValue = event.target.value.trim();
-		};
-		event.target.addEventListener('change', changeInput);
-		//item.changeInput();
-	});
+	const changeInput = function (event) {
+		console.log(event);
+
+		let condition = /.+/,
+		textAlert;
+		if (target.placeholder === 'Наименование') {
+			condition = /^[а-яА-ЯёЁa-zA-Z][а-яА-ЯёЁa-zA-Z0-9\s,]+$/;
+			textAlert = 'Проверка на букву не пройдена';
+		}
+		if (target.placeholder === 'Сумма') {
+			condition = /^[\d]+$/;
+			textAlert = 'Проверка на число не пройдена';
+		}
+		if (!condition.test(event.target.value.trim()) && event.target.value.trim() !== '') {
+			alert(textAlert);
+			event.target.value = tmpValue;
+			//event.target.removeEventListener('change', changeInput);
+		}
+		tmpValue = event.target.value.trim();
+	};
+	event.target.addEventListener('change', changeInput);
 };
 
 AppData.prototype.updateInput = function () {
-
+	console.log('Привет');
+	const str = document.querySelectorAll('.data input');
+	//console.log(str);
 };
 
 AppData.prototype.eventListeners = function () {
@@ -312,12 +316,11 @@ AppData.prototype.eventListeners = function () {
 		incomePeriodValue.value = _this.calcSavedMoney();
 	});
 	salaryAmount.addEventListener('input', this.startDisable);
-/* 	document.querySelectorAll('.data input').forEach(function (input) {
+	document.querySelectorAll('.data input').forEach(function (input) {
 		input.addEventListener('focus', _this.check);
-	}); */
+	});
 };
 
 const appData = new AppData;
 
 appData.eventListeners();
-
