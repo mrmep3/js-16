@@ -79,19 +79,14 @@ const appData = {
 		});
 	},
 	cancel: function () {
-		//console.log(this);
-		//this.reset();
-		//let incomeItems = document.querySelectorAll('.income-items');
 		incomeItems.forEach(function (item, i) {
 			if ( i > 0 && i < 3 ) {
 				item.remove()
 			}
 		});
-		console.log(incomeItems.values);
 		expensesItems.forEach(function (item, i) {
 			if ( i > 0 && i < 3 ) {
-				//item.remove()
-				console.log(item[i]);
+				item.remove()
 			}
 		});
 		incomeAdd.style.display = '';
@@ -123,8 +118,6 @@ const appData = {
 		this.deposit = false;
 		this.percentDeposit = 0;
 		this.moneyDeposit = 0;
-		//expensesItems = {};
-		//incomeItems = {};
 	},
 	showResult: function () {
 		budgetMonthValue.value = this.budgetMonth;
