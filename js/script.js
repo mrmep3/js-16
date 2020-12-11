@@ -171,9 +171,8 @@ AppData.prototype.addIncomeBlock = function () {
 };
 
 AppData.prototype.getExpenses = function () { 
-	console.log(this);
 	const _this = this;
-	expensesItems.forEach(function (item) {
+	document.querySelectorAll('.expenses-items').forEach(function (item) {
 		const itemExpenses = item.querySelector('.expenses-title').value;
 		const cashExpenses = item.querySelector('.expenses-amount').value;
 		if ( itemExpenses !== '' && cashExpenses !== '' ) {
@@ -184,7 +183,7 @@ AppData.prototype.getExpenses = function () {
 
 AppData.prototype.getIncome = function () {
 	const _this = this;
-	incomeItems.forEach(function (item) {
+	document.querySelectorAll('.income-items').forEach(function (item) {
 		const itemIncome = item.querySelector('.income-title').value;
 		const cashIncome = item.querySelector('.income-amount').value;
 		if ( itemIncome !== '' && cashIncome !== '' ) {
