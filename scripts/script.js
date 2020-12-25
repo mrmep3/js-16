@@ -72,7 +72,7 @@ window.addEventListener('DOMContentLoaded', function() {
 		popupClose = document.querySelector('.popup-close'),
 		popupContent = document.querySelector('.popup-content'),
 		popupData = {
-			count: 460,
+			count: 0,
 			speed: 15,
 			start: 460,
 			end: -50
