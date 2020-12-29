@@ -158,12 +158,14 @@ window.addEventListener('DOMContentLoaded', function() {
 			item.classList.add('dot');
 			dots.appendChild(item);
 		})
-		dots.children[0].classList.add('dot-active');
+		//dots.children[0].classList.add('dot-active');
 
 		const dot = document.querySelectorAll('.dot');
-		//dot[0].classList.add('dot-active')
+		dot[0].classList.add('dot-active')
 		let currentSlide = 0,
 			interval;
+
+		//currentSlide.classList.add('dot-active');
 
 		const prevSlide = (elem, index, strClass) => {
 			elem[index].classList.remove(strClass);
@@ -203,7 +205,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			};
 
 			prevSlide(slide, currentSlide, 'portfolio-item-active');
-			prevSlide(dot, currentSlide, '.dot-active');
+			prevSlide(dot, currentSlide, 'dot-active');
 			
 			if (target.matches('#arrow-right')) {
 				currentSlide++;
@@ -226,7 +228,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			}
 
 			nextSlide(slide, currentSlide, 'portfolio-item-active');
-			nextSlide(dot, currentSlide, '.dot-active');
+			nextSlide(dot, currentSlide, 'dot-active');
 		});
 
 		slider.addEventListener('mouseover', (event) => {
