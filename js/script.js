@@ -31,8 +31,6 @@ class toDo {
 				<button class="todo-complete"></button>
 			</div>
 		`);
-/* 		console.log(item.key);
-		console.log(this.todoData.get(item.key)); */
 
 		if (todo.completed) {
 			this.todoCompleted.append(item);
