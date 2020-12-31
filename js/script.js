@@ -76,7 +76,7 @@ class toDo {
 	}
 
 	isString(item) {
-		let reg = /^[а-яА-ЯёЁa-zA-Z][а-яА-ЯёЁa-zA-Z0-9\s,]+$/;
+		let reg = /^[а-яА-ЯёЁa-zA-Z0-9\s,]+$/;
 		return reg.test(item);
 	}
 
