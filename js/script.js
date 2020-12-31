@@ -61,7 +61,9 @@ class toDo {
 
 	addTodo(event) {
 		event.preventDefault();
-		if (this.input.value.trim()) {
+		if (!this.isString(this.input.value)) {
+			alert('Пустое дело добавить нельзя!')
+		} else {
 			const newTodo = {
 				value: this.input.value,
 				completed: false,
@@ -71,6 +73,11 @@ class toDo {
 			this.render();
 		}
 		this.input.value = '';
+	}
+
+	isString(item) {
+		let reg = /^[а-яА-ЯёЁa-zA-Z][а-яА-ЯёЁa-zA-Z0-9\s,]+$/;
+		return reg.test(item);
 	}
 
 	generateKey() {
