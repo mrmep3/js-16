@@ -308,7 +308,7 @@ window.addEventListener('DOMContentLoaded', function() {
 				total = price * typeValue * squareValue * countValue * dayValue;
 			}
 
-			totalValue.textContent = total;
+			totalValue.textContent = Math.ceil(total);
 		}
 
 		calcBlock.addEventListener('change', (event) => {
