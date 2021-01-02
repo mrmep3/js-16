@@ -2,7 +2,7 @@ window.addEventListener('DOMContentLoaded', function() {
 	'use strict';
 
 	// Timer
-	function countTimer(deadline) {
+	const countTimer = (deadline) => {
 		const	timerHours = document.querySelector('#timer-hours'),
 			timerDays = document.querySelector('#timer-days'),
 			timerMinutes = document.querySelector('#timer-minutes'),
@@ -28,7 +28,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			timerSeconds.textContent = ('0' + timer.seconds).slice(-2);
 
 			if (timer.timeRemaining <= 0) {
-				clearInterval(timeInterval);
+				//clearInterval(timeInterval);
 				timerDays.textContent = '0';
 				timerHours.textContent = '00';
 				timerMinutes.textContent = '00';
@@ -38,9 +38,10 @@ window.addEventListener('DOMContentLoaded', function() {
 
 		updateClock();
 		let timeInterval = setInterval(updateClock, 1000);
+
 	};
 
-	countTimer('1 january 2021');
+	countTimer('4 january 2021');
 
 	// Menu
 	const toggleMenu = () => {
@@ -246,4 +247,40 @@ window.addEventListener('DOMContentLoaded', function() {
 	};
 
 	slider();
+
+	// Our Team change img
+	const ourTeam = () => {
+		const team = document.querySelector('#command .row');
+		let links = {};
+
+		team.addEventListener('mouseover', (event) => {
+			const target = event.target;
+			if (target.classList.contains('command__photo')) {
+				links[event.target.dataset.img] = event.target.src;
+				event.target.src = event.target.dataset.img;
+			}
+
+		});
+		team.addEventListener('mouseout', (event) => {
+			const target = event.target;
+			if (target.classList.contains('command__photo')) {
+				event.target.src = links[event.target.dataset.img];
+			}
+		});
+	}
+	
+	ourTeam();
+
+	// Calculator
+	const calcBlock = () => {
+		const input = document.querySelectorAll('.calc-block input');
+		input.forEach((event, index) => {
+			input[index].addEventListener('input', () => {
+				input[index].value = input[index].value.replace(/\D/g, '');
+			})
+		})
+	}
+
+	calcBlock();
+
 });
