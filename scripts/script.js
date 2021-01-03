@@ -342,10 +342,10 @@ window.addEventListener('DOMContentLoaded', function() {
 						}
 					})
 					request.open('POST', './server.php');
-					request.setRequestHeader('Content-Type', 'multipart/form-data');
-					//request.setRequestHeader('Content-Type', 'application/json');
-					request.send(body);
-					//request.send(JSON.stringify(body));
+					//request.setRequestHeader('Content-Type', 'multipart/form-data');
+					request.setRequestHeader('Content-Type', 'application/json');
+					//request.send(body);
+					request.send(JSON.stringify(body));
 				}
 
 				const clearForm = (idForm) => {
@@ -359,7 +359,7 @@ window.addEventListener('DOMContentLoaded', function() {
 					const form = document.getElementById(idForm),
 							statusMessage = document.createElement('div');
 
-					statusMessage.style.cssText = 'font-size: 3rem;';
+					statusMessage.style.cssText = 'font-size: 2rem; color: white;';
 
 					form.addEventListener('submit', (event) => {
 						event.preventDefault();
@@ -376,8 +376,9 @@ window.addEventListener('DOMContentLoaded', function() {
 							body[key] = value;
 						})
 						postData(body, () => {
-							statusMessage.textContent = successMessage;
+							let time = setInterval(() =>statusMessage.textContent = successMessage, 0);
 							clearForm(idForm);
+							setTimeout(() =>{ clearInterval(time); statusMessage.textContent = ''; document.querySelector('.popup').style.display = 'none';}, 5000)
 						}, (error) => {
 							statusMessage.textContent = errorMessage;
 							console.error(error);
@@ -386,15 +387,34 @@ window.addEventListener('DOMContentLoaded', function() {
 					form.addEventListener('input', (event) => {
 						const target = event.target;
 						if (target.matches('.form-phone')) {
+							target.setAttribute('maxlength', 11);
 							target.value = target.value.replace(/[^+\d]/g, '');
+							if (/\+/.test(target.value)) {
+								target.setAttribute('maxlength', 12);
+							}
 						}
-						if (target.matches('.form-name')) {
+						if (target.name === 'user_name') {
 							target.value = target.value.replace(/[^а-яё\s]/ig, '');
 						}
+						if (target.matches('.form-email')) {
+							target.value = target.value.replace(/[^a-z0-9@.]/ig, '');
+							//console.log(/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i.test(target.value));
+							//target.value = target.value.replace(/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i, '');
+							//target.value = target.value.replace(/[\w]+@/ig, '');
+							//target.value = target.value.replace(/\w+@\w+\.\w+/, '')
+							//target.value = target.value.replace(/^[a-z0-9_.-]+@([a-z0-9]+.)+[a-z]{2,3}$/i, '')
+							//target.value = target.value.replace(/(\w+)(\W)(\w+)(@\w*(.\w{2,6}))?/i, '')
+/* 							if (/@\w+\./.test(target.value)) {
+								console.log('test');
+							} */
+							//console.log(target.value);
+							//target.value = target.value.replace(/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,6})$/ig, '')
+						}
 						if (target.matches('.mess')) {
-							target.value = target.value.replace(/[^а-яё\s0-9,.]/ig, '');
+							target.value = target.value.replace(/[^\W0-9_]/ig, '');
 						}
 					});
+
 				}
 				getForm('form1');
 				getForm('form2');
