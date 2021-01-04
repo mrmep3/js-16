@@ -385,7 +385,6 @@ window.addEventListener('DOMContentLoaded', function() {
 						});
 					})
 					form.addEventListener('input', (event) => {
-						console.dir(form.elements[4].disabled);
 						const target = event.target;
 						if (target.matches('.form-phone')) {
 							target.setAttribute('maxlength', 11);
@@ -397,6 +396,7 @@ window.addEventListener('DOMContentLoaded', function() {
 							}
 						}
 						if (target.name === 'user_name') {
+							target.setAttribute('pattern', '[А-Яа-яЁё]{2,}$');
 							target.value = target.value.replace(/[^а-яё\s]/ig, '');
 						}
 						if (target.matches('.form-email')) {
@@ -404,7 +404,7 @@ window.addEventListener('DOMContentLoaded', function() {
 							target.value = target.value.replace(/[^a-z0-9@.]/ig, '');
 						}
 						if (target.matches('.mess')) {
-							target.value = target.value.replace(/[^\W0-9_]/ig, '');
+							target.value = target.value.replace(/[^а-яё0-9!?,.;:-\s]/ig, '');
 						}
 					});
 				}
