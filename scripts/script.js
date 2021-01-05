@@ -41,7 +41,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
 	};
 
-	countTimer('4 january 2021');
+	countTimer('6 january 2021 01:30');
 
 	// Menu
 	const toggleMenu = () => {
@@ -329,23 +329,25 @@ window.addEventListener('DOMContentLoaded', function() {
 				loadMessage = "Загрузка...",
 				successMessage = "Спасибо! Мы скоро с Вами свяжемся!";
 
-				const postData = (body, outputData, errorData) => {
-					const request = new XMLHttpRequest();
-					request.addEventListener('readystatechange', () => {
-						if (request.readyState !== 4) {
-							return;
-						}
-						if (request.status === 200) {
-							outputData();
-						} else {
-							errorData(request.status);
-						}
+				const postData = (body) => {
+					return new Promise ((resolve, reject) => {
+						const request = new XMLHttpRequest();
+						request.addEventListener('readystatechange', () => {
+							if (request.readyState !== 4) {
+								return;
+							}
+							if (request.status === 200) {
+								resolve();
+							} else {
+								reject(request.status);
+							}
+						})
+						request.open('POST', './server.php');
+						//request.setRequestHeader('Content-Type', 'multipart/form-data');
+						request.setRequestHeader('Content-Type', 'application/json');
+						//request.send(body);
+						request.send(JSON.stringify(body));
 					})
-					request.open('POST', './server.php');
-					//request.setRequestHeader('Content-Type', 'multipart/form-data');
-					request.setRequestHeader('Content-Type', 'application/json');
-					//request.send(body);
-					request.send(JSON.stringify(body));
 				}
 
 				const clearForm = (idForm) => {
@@ -375,15 +377,15 @@ window.addEventListener('DOMContentLoaded', function() {
 						formData.forEach((value, key) => {
 							body[key] = value;
 						})
-						postData(body, () => {
-							let time = setInterval(() =>statusMessage.textContent = successMessage, 0);
-							clearForm(idForm);
-							setTimeout(() =>{ clearInterval(time); statusMessage.textContent = ''; document.querySelector('.popup').style.display = 'none';}, 5000)
-						}, (error) => {
-							statusMessage.textContent = errorMessage;
-							console.error(error);
-						});
-					})
+						postData(body)
+							.then(() => {
+								let time = setInterval(() =>statusMessage.textContent = successMessage, 0);
+								clearForm(idForm);
+								setTimeout(() =>{ clearInterval(time); statusMessage.textContent = ''; 
+									document.querySelector('.popup').style.display = 'none';}, 5000)
+							})
+							.catch(error => {statusMessage.textContent = errorMessage; console.error(error);});
+						})
 					form.addEventListener('input', (event) => {
 						const target = event.target;
 						if (target.matches('.form-phone')) {
