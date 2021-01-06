@@ -330,23 +330,11 @@ window.addEventListener('DOMContentLoaded', function() {
 				successMessage = "Спасибо! Мы скоро с Вами свяжемся!";
 
 				const postData = (body) => {
-					return new Promise ((resolve, reject) => {
-						const request = new XMLHttpRequest();
-						request.addEventListener('readystatechange', () => {
-							if (request.readyState !== 4) {
-								return;
-							}
-							if (request.status === 200) {
-								resolve();
-							} else {
-								reject(request.status);
-							}
-						})
-						request.open('POST', './server.php');
-						//request.setRequestHeader('Content-Type', 'multipart/form-data');
-						request.setRequestHeader('Content-Type', 'application/json');
-						//request.send(body);
-						request.send(JSON.stringify(body));
+					return fetch('./server.php', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json'},
+						body: JSON.stringify(body)
 					})
 				}
 
@@ -378,7 +366,10 @@ window.addEventListener('DOMContentLoaded', function() {
 							body[key] = value;
 						})
 						postData(body)
-							.then(() => {
+							.then((response) => {
+								if (response.status !== 200) {
+									throw new Error ('status network not 200');
+								}
 								let time = setInterval(() =>statusMessage.textContent = successMessage, 0);
 								clearForm(idForm);
 								setTimeout(() =>{ clearInterval(time); statusMessage.textContent = ''; 
