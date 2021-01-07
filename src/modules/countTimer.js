@@ -23,17 +23,17 @@ const countTimer = (deadline) => {
 		timerMinutes.textContent = ('0' + timer.minutes).slice(-2);
 		timerSeconds.textContent = ('0' + timer.seconds).slice(-2);
 
+		let timeInterval = setInterval(updateClock, 1000);
+
 		if (timer.timeRemaining <= 0) {
-			//clearInterval(timeInterval);
+			clearInterval(timeInterval);
 			timerDays.textContent = '0';
 			timerHours.textContent = '00';
 			timerMinutes.textContent = '00';
 			timerSeconds.textContent = '00';
 		} 
 	}
-
 	updateClock();
-	let timeInterval = setInterval(updateClock, 1000);
 
 };
 

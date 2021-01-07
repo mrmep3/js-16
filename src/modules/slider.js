@@ -15,9 +15,7 @@ const slider = () => {
 	let currentSlide = 0,
 		interval;
 
-	//currentSlide.classList.add('dot-active');
-
-	const prevSlide = (elem, index, strClass) => {
+		const prevSlide = (elem, index, strClass) => {
 		elem[index].classList.remove(strClass);
 	};
 

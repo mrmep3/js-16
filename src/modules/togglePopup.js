@@ -24,7 +24,6 @@ const togglePopup = () => {
 	popupBtn.forEach((elem) => {
 		elem.addEventListener('click', () => {
 			popup.style.display = 'block';
-			//requestAnimationFrame(showPopup);
 			if (screen.width > 768) {
 				popupData.count = popupData.start;
 				requestAnimationFrame(showPopup);

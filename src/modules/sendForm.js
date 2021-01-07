@@ -31,11 +31,6 @@ const sendForm = () => {
 				statusMessage.textContent = loadMessage;
 				const formData = new FormData(form);
 				let body = {};
-
-/* 					for (let value of formData.entries()) {
-					body[val[0]] = val[1];
-				} */
-
 				formData.forEach((value, key) => {
 					body[key] = value;
 				})
