@@ -1,17 +1,29 @@
 const toggleMenu = () => {
-	const btnMenu = document.querySelector('.menu'),
-		menu = document.querySelector('menu');
+	const services = document.getElementById('services'),
+			faq = document.getElementById('faq'),
+			contacts = document.getElementById('contacts'),
+			topMenu = document.querySelectorAll('.top-menu ul li'),
+			up = document.querySelector('.up');
 
-	const handlerMenu = (event) => {
-		const target = event.target;
-	
-		if (target === document.querySelector('.close-btn') || target.closest('ul>li') || target.closest('.menu')) {
-			menu.classList.toggle('active-menu');
-		} 
-	};
+	topMenu.forEach((element, index) => {
+		element.addEventListener('click', (event) => {
+			event.preventDefault();
+			if ( index === 0 ) {
+				services.scrollIntoView({block: "start", behavior: "smooth"});
+			} else if ( index === 1 ) {
+				faq.scrollIntoView({block: "start", behavior: "smooth"});
+			} else if ( index === 2 ) {
+				contacts.scrollIntoView({block: "start", behavior: "smooth"});
+			}
+		})
+	})
 
-	menu.addEventListener('click', handlerMenu)
-	btnMenu.addEventListener('click', handlerMenu);
-};
+	window.addEventListener('scroll', () => {
+		up.hidden = (pageYOffset < document.documentElement.clientHeight / 2);
+		up.addEventListener('click', () => {
+			window.scrollTo({top: 0, left: 0, behavior: "smooth"});
+		})
+	})
+}
 
 export default toggleMenu;

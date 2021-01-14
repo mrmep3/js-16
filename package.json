@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/mrmep3/js-16#readme",
   "devDependencies": {
-    "webpack": "^5.11.1",
+    "webpack": "^5.14.0",
     "webpack-cli": "^4.3.1"
   }
 }

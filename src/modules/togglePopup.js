@@ -1,49 +1,45 @@
 const togglePopup = () => {
-	const popup = document.querySelector('.popup'),
-	popupBtn = document.querySelectorAll('.popup-btn'),
-	popupContent = document.querySelector('.popup-content'),
-	popupData = {
-		count: 0,
-		speed: 15,
-		start: 460,
-		end: -50
-	};
+	const modalCallback = document.querySelector('.modal-callback'),
+			modalOverlay = document.querySelector('.modal-overlay'),
+			callbackBtn = document.querySelectorAll('.callback-btn'),
+			servisesBtn = document.querySelectorAll('.absolute'),
+			buttonServices = document.querySelector('.button-services');
 
-	const showPopup = () => {
+	callbackBtn.forEach((element) => {
+		element.addEventListener('click', (event) => {
+			event.preventDefault();
+			modalCallback.style.display = 'block';
+			modalOverlay.style.display = 'block';
 
-		popupData.start > popupData.end ? popupData.count -= popupData.speed : popupData.count += popupData.speed;
-		popupContent.style.transform = `translateX(${popupData.count}px)`;
-
-		if (popupData.start > popupData.end ?
-			popupData.count > popupData.end :
-			popupData.count < popupData.end) {
-			requestAnimationFrame(showPopup);
-		}
-	};	
-
-	popupBtn.forEach((elem) => {
-		elem.addEventListener('click', () => {
-			popup.style.display = 'block';
-			if (screen.width > 768) {
-				popupData.count = popupData.start;
-				requestAnimationFrame(showPopup);
-			}
 		})
-	});
-
-	popup.addEventListener('click', (event) => {
-		let target = event.target;
-		if ( target.classList.contains('popup-close') ) {
-			popup.style.display = 'none';
-			popupData.count = popupData.start;
-		} else {
-			target = target.closest('.popup-content');
-
-			if (!target) {
-				popup.style.display = 'none';
-			}
-		}
 	})
-};
+
+	servisesBtn.forEach((element) => {
+		element.addEventListener('click', (event) => {
+			event.preventDefault();
+			modalCallback.style.display = 'block';
+			modalOverlay.style.display = 'block';
+		})
+	})
+
+	buttonServices.addEventListener('click', (event) => {
+		event.preventDefault();
+		modalCallback.style.display = 'block';
+		modalOverlay.style.display = 'block';
+	})
+
+	modalCallback.addEventListener('click', (event) => {
+		let target = event.target;
+		if ( target.tagName === 'IMG' ) {
+			modalCallback.style.display = 'none';
+			modalOverlay.style.display = 'none';
+		} 
+	})
+
+	modalOverlay.addEventListener('click', () => {
+		modalCallback.style.display = 'none';
+		modalOverlay.style.display = 'none';
+	})
+}
 
 export default togglePopup;
