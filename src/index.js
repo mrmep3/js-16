@@ -2,8 +2,12 @@
 
 import togglePopup from './modules/togglePopup';
 import toggleMenu from './modules/toggleMenu';
-import Faq from './modules/Faq';
+import toggleFaq from './modules/toggleFaq';
+import slider from './modules/slider';
+import carousel from './modules/carousel';
 
 togglePopup();
 toggleMenu();
-Faq();
+toggleFaq();
+slider();
+carousel();

@@ -516,6 +516,7 @@ img.right{
   list-style: none;
   text-align: center;
   display: block;
+  z-index: 15;
 }
 .slick-dots li button{
     position: absolute;

@@ -856,6 +856,10 @@ hr.white {
 	overflow: hidden;
 	height: 450px;
 	position: relative;
+	display: none;
+}
+.top-slider .active{
+	display: block;
 }
 .top-slider .item:before {
 	content: "";
